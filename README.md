@@ -106,21 +106,10 @@ httpd:
  ports:
    - 80:80
 docker-compose up -d
-vi webserver.yml
----
-- hosts: MSR-test-Instance-1
-  remote_user: ansible
-  become_method: sudo
-  tasks:
-  -name: installation of apache
-   yum: name=httpd state=present
-  notify:
-  -name: start the service
-  handlers:
-  -name: start the service
-   service: name=httpd state=started enabled=yes
-  -name deploy a sample html file from github repository
-   get_url: https://github.com/karunasree4/index.git dest: /var/www/html
+vi Dockerfile
+FROM: centos:latest
+RUN: yum install -y httpd
+ADD: https://github.com/karunasree4/index.git /var/www/html
 #####################################################################################################
 
 4) Create a Docker Container in MSR-test-Instance-2 using Docker Compose file and ensure CouchDB Database is
@@ -142,14 +131,13 @@ couchdb: (container name)
 docker-compose up -d launching the container as a background process
 #####################################################################################################
 5) Commit all the code/files to GitHub and write your explanations and documentations into the readme.
-    git pull origin master or
-    git clone https://github.com/karunasree4/index.git
-    vi README.md
-    pate the above tasks
-    :wq!
-    git add .
-    git status
-    git commit -m "updated README.md
-    git push origin master
+   git commit -m "updated README.md"
+   git push origin master
 6) It will be an added advantage if you can draft the step by step procedure in performing the above activities and
 how to execute the code.
+    git pull origin master or git clone https://github.com/karunasree4/index.git (we can get the latest code from the git hub)
+    if you want to create files and changing the existing the files
+    then after git add . (add the files from working area to staging area}
+    git status (we can see the status of files i.e. working area or staging area)
+    git commit -m "latest changes" ( this command is used to add the file staging area to local repository)
+    git push origin master ( we can push the files from local to git hub repository)  
